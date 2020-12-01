@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions 
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 京东点点券
+name: 京东点点
 
 on:
     workflow_dispatch:
@@ -17,25 +17,27 @@ jobs:
         runs-on: ubuntu-latest
         if: github.event.repository.owner.id == github.event.sender.id
         steps:
-            - name: Checkout codes
-              uses: actions/checkout@v2
-            - name: Use Node.js
+            - uses: actions/checkout@v1
+            - name: Use Node.js 10.x
               uses: actions/setup-node@v1
               with:
-                  node-version: "12.x"
+                  node-version: 10.x
             - name: npm install
               run: |
                   npm install
-            - name: "运行【点点券】"
+            - name: "运行 【京东点点】"
               run: |
                   node onlyOneExecute.js
               env:
                   JD_COOKIE: ${{ secrets.JD_COOKIE }}
+                  JD_DEBUG: ${{ secrets.JD_DEBUG }}
                   PUSH_KEY: ${{ secrets.PUSH_KEY }}
                   BARK_PUSH: ${{ secrets.BARK_PUSH }}
                   BARK_SOUND: ${{ secrets.BARK_SOUND }}
+                  PETSHARECODES: ${{ secrets.PETSHARECODES }}
                   TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
                   TG_USER_ID: ${{ secrets.TG_USER_ID }}
                   DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
                   DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-                  SYNCURL: https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_necklace.js
+                  PET_NOTIFY_CONTROL: ${{ secrets.PET_NOTIFY_CONTROL }}
+                  SYNCURL: https://github.com/lxk0301/jd_scripts/raw/master/jd_necklace.js
